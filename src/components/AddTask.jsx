@@ -2,7 +2,7 @@ import React from "react";
 
 function AddTask({ sendNewTask }) {
     const handleTaskSubmit = (event) => {
-        console.log(event);
+        // console.log(event);
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);

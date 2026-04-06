@@ -1,57 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Filters from "../components/Filters";
 import TaskList from "../components/TaskList/TaskList";
 import AddTask from "../components/AddTask";
 
-// const taskData = [
-//     {
-//         id: 1,
-//         title: "study react lecture (pt1: state & hooks, pt2: routing)",
-//         completed: true,
-//         priority: "high",
-//     },
-//     {
-//         id: 2,
-//         title: "reactjs lab 2 pt1 (hooks)",
-//         completed: false,
-//         priority: "medium",
-//     },
-//     {
-//         id: 3,
-//         title: "reactjs lab 2 pt2 (routing)",
-//         completed: false,
-//         priority: "medium",
-//     },
-//     {
-//         id: 4,
-//         title: "deploy react app on github pages maybe lw fi wa2t ya3ni",
-//         completed: false,
-//         priority: "low",
-//     },
-//     {
-//         id: 5,
-//         title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-//         completed: false,
-//         priority: "high",
-//     },
-//     {
-//         id: 6,
-//         title: "Ducimus error ipsam unde numquam quidem dolores repudiandae placeat quae laudantium similique. ",
-//         completed: true,
-//         priority: "medium",
-//     },
-//     {
-//         id: 7,
-//         title: "Quidem magni officia qui nisi molestiae. ",
-//         completed: false,
-//         priority: "low",
-//     },
-// ];
-// let nextId = 8; // for now?
+const savedTasks = localStorage.getItem("userTasks");
 
 function Home() {
     const [filters, setFilters] = useState({ hideCompleted: false });
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(() =>
+        savedTasks ? JSON.parse(savedTasks) : [],
+    );
+
+    // save tasks to localStorage on tasks state change
+    useEffect(() => {
+        // console.log(JSON.stringify(tasks));
+        localStorage.setItem("userTasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     const receiveFilters = (filters) => {
         setFilters(filters);

@@ -2,6 +2,7 @@ import React from "react";
 import { FaRegCircle, FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdTrash } from "react-icons/io";
 import { CgTrashEmpty } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const priorityColor = {
@@ -44,8 +45,14 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
             </label>
             {/* <button className="px-2 py-1" onClick={handleCompletedToggle}>
                 {task.completed ? <FaRegCircleCheck /> : <FaRegCircle />}
-            </button> */}
-            <div className="px-2 py-1 flex-1">{task.title}</div>
+                </button> */}
+
+            <div className="px-2 py-1 flex-1">
+                <Link to={`/task/${task.id}`}>
+                    <div className="px-2 py-1">{task.title}</div>
+                </Link>
+            </div>
+
             <button className="px-2 py-1 cursor-pointer" onClick={handleDelete}>
                 <CgTrashEmpty />
             </button>

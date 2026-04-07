@@ -4,9 +4,8 @@ import React, { useState, useEffect } from "react";
 //     FaUserSecret,
 // } from "react-icons/fa6";
 
-const savedTasks = JSON.parse(localStorage.getItem("userTasks")) || [];
-
 function Profile() {
+    const savedTasks = JSON.parse(localStorage.getItem("userTasks")) || [];
     const [username, setUsername] = useState(() => {
         const value = JSON.parse(localStorage.getItem("username"));
         return value || "Anonymous User";

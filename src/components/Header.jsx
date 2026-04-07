@@ -4,16 +4,16 @@ import { Link, NavLink } from "react-router-dom";
 
 function Header() {
     const navBarStyles = ({ isActive }) => {
-        let styles = "px-5 py-1 rounded-2xl border-2 ";
+        let styles = "px-4 md:px-6 py-0.5 rounded-3xl border-2 transition ";
         styles += isActive
             ? "border-black"
-            : "border-transparent hover:border-black";
+            : "border-transparent hover:border-slate-900";
         // console.log(isActive);
         // console.log(styles);
         return styles;
     };
     return (
-        <header className="bg-slate-100 px-10 py-3 flex flex-col md:flex-row items-center gap-2">
+        <header className="bg-slate-50 text-slate-800 px-10 py-3 flex flex-col md:flex-row items-center gap-2">
             <div className="flex gap-3">
                 <LuNotebookPen className="inline text-2xl" />
                 <h1 className="font-extrabold text-xl">ReDoist</h1>
@@ -30,7 +30,7 @@ function Header() {
                     Profile
                 </NavLink>
                 <a
-                    className="px-5 py-1 rounded-2xl border-2 border-transparent hover:border-black"
+                    className="px-4 md:px-6 py-0.5 rounded-3xl border-2 border-transparent hover:border-slate-900 transition"
                     href="https://github.com/verinak"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -23,7 +23,7 @@ function TaskDetails() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center">
+        <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center shadow-md">
             {task ? (
                 <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit">
                     <p className="mb-0 text-slate-500 font-medium text-base md:text-lg">

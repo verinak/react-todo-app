@@ -62,7 +62,7 @@ function Home() {
     return (
         <>
             <div className="flex flex-col min-h-screen p-2 md:p-4 bg-slate-200">
-                <h2 className="text-center font-bold text-2xl my-2">
+                <h2 className="text-center font-bold text-2xl my-2 text-slate-800">
                     {username ? `${username}'s` : "My"} To-Do List
                 </h2>
                 <AddTask sendNewTask={receiveNewTask} />

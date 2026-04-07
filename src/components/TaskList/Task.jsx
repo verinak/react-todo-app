@@ -21,7 +21,7 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     };
     const bgColor =
         priorityColor[task.priority][task.completed ? "completed" : "default"];
-    const textColor = task.completed ? "text-gray-600" : "text-black";
+    const textColor = task.completed ? "text-gray-600" : "text-slate-800";
 
     const handleDelete = () => {
         sendTaskDelete(task.id);
@@ -32,7 +32,7 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     };
     return (
         <div
-            className={`m-2 p-1 md:p-2 flex items-center rounded-lg ${bgColor} ${textColor}`}
+            className={`m-2 p-1 md:p-2 flex items-center rounded-xl ${bgColor} ${textColor}`}
         >
             <label className="px-2 py-1 cursor-pointer">
                 <input

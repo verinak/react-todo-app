@@ -29,10 +29,11 @@ function Profile() {
         // console.log(usernameInput);
         setUsername(usernameInput);
         if (!usernameInput) setUsernameInput("Anonymous User");
+        alert("Username updated!");
     };
 
     return (
-        <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center">
+        <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center shadow-md">
             <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit">
                 {/* todo: user icons :( */}
                 {/* username input */}
@@ -42,11 +43,11 @@ function Profile() {
                         value={usernameInput}
                         onChange={handleUsernameChange}
                         placeholder="What should we call you?"
-                        className="flex-1 rounded-xl border border-slate-300 px-4 py-2 outline-none focus:ring-2 focus:ring-slate-400"
+                        className="flex-1 rounded-3xl border border-slate-300 px-5 py-2 outline-none focus:ring-2 focus:ring-slate-400 transition"
                     />
 
                     <button
-                        className="rounded-xl px-4 py-2 bg-slate-600  hover:bg-slate-700 text-white font-medium"
+                        className="rounded-3xl px-5 py-2 bg-slate-600  hover:bg-slate-700 text-white font-medium transition"
                         onClick={handleUsernameSave}
                     >
                         Save

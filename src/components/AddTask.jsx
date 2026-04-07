@@ -23,13 +23,15 @@ function AddTask({ sendNewTask }) {
                     placeholder="Enter a new task.."
                     id="title"
                     name="title"
-                    className="flex-1 rounded border px-3 py-2 outline-none focus:ring-1 w-full md:w-fit"
+                    className="flex-1 rounded-3xl border border-slate-500 px-4 py-2 outline-none focus:ring-1 focus:ring-slate-500 w-full md:w-fit transition"
                 />
 
+                {/* ugly af bs ana mali4 5ol2 3al css dlwa2ti */}
+                {/* todo: fix this.. */}
                 <select
                     id="priority"
                     name="priority"
-                    className="rounded border px-3 py-2 outline-none focus:ring-1  w-full md:w-fit"
+                    className="rounded-3xl border border-slate-500 px-4 py-2 outline-none focus:ring-1 focus:ring-slate-500 w-full md:w-fit transition"
                 >
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
@@ -38,7 +40,7 @@ function AddTask({ sendNewTask }) {
 
                 <button
                     type="submit"
-                    className="rounded px-4 py-2 bg-slate-600 hover:bg-slate-700  text-white font-medium  w-full md:w-fit"
+                    className="rounded-3xl px-4 py-2 bg-slate-600 hover:bg-slate-700  text-white font-medium  w-full md:w-fit transition"
                 >
                     Add Task
                 </button>

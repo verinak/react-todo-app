@@ -5,7 +5,7 @@ function TaskList({ tasks, sendTaskDelete, sendTaskCompleted }) {
     // const [tasks, setTasks] = useState(taskData);
 
     return (
-        <div className="m-2 md:text-lg flex-1 bg-slate-100 rounded-lg">
+        <div className="m-2 p-6 md:text-lg flex-1 bg-white rounded-2xl shadow-md">
             {tasks.length === 0 ? (
                 <div className="text-center p-3">
                     <p>Nothing to see here!</p>

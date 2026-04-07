@@ -3,9 +3,9 @@ import Filters from "../components/Filters";
 import TaskList from "../components/TaskList/TaskList";
 import AddTask from "../components/AddTask";
 
-const savedTasks = localStorage.getItem("userTasks");
-
 function Home() {
+    const savedTasks = localStorage.getItem("userTasks");
+
     const [filters, setFilters] = useState({ hideCompleted: false });
     const [tasks, setTasks] = useState(() =>
         savedTasks ? JSON.parse(savedTasks) : [],

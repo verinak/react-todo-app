@@ -8,7 +8,8 @@ import TaskDetails from "./pages/TaskDetails";
 function App() {
     return (
         <>
-            <BrowserRouter>
+            {/* <BrowserRouter> */}
+            <BrowserRouter basename="/react-todo-app">
                 <Header />
                 <Routes>
                     <Route path="/" element={<Navigate to="/home" replace />} />

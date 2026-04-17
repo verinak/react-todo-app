@@ -18,6 +18,10 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
             default: "bg-lime-100",
             completed: "bg-lime-50",
         },
+        none: {
+            default: "bg-gray-100",
+            completed: "bg-gray-50",
+        },
     };
     const bgColor =
         priorityColor[task.priority][task.completed ? "completed" : "default"];

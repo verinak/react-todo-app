@@ -1,73 +1,117 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 
 function AddTask({ sendNewTask }) {
-    {
-        /* todo: form handling and validation maybe badal el 2araf da */
-    }
+    const [formData, setFormData] = useState({
+        title: "",
+        priority: "none",
+    });
+
+    const handleTitleChange = (event) => {
+        setFormData((prev) => ({
+            ...prev,
+            title: event.target.value,
+        }));
+    };
+
+    const handlePriorityChange = (event) => {
+        setFormData((prev) => ({
+            ...prev,
+            priority: event.target.checked ? event.target.value : "none",
+        }));
+    };
+
     const handleTaskSubmit = (event) => {
-        // console.log(event);
         event.preventDefault();
 
-        const formData = new FormData(event.currentTarget);
-        const values = Object.fromEntries(formData.entries());
-        // console.log(values); // { username: "...", email: "..." }
-
-        event.target.reset();
-        sendNewTask(values);
+        sendNewTask(formData);
+        // event.target.reset();
+        setFormData({
+            title: "",
+            priority: "none",
+        });
     };
-    return (
-        <div className="px-2 py-4 m-2">
-            <form
-                className="flex flex-col md:flex-row gap-2 items-center"
-                onSubmit={handleTaskSubmit}
-            >
-                <input
-                    type="text"
-                    placeholder="Enter a new task.."
-                    id="title"
-                    name="title"
-                    className="flex-2 rounded-3xl border border-slate-500 px-4 py-2 outline-none focus:ring-1 focus:ring-slate-500 w-full md:w-fit transition"
-                />
 
-                <div className="flex-1 flex flex-row justify-between p-1 gap-1 bg-white-50 border border-slate-600/40 bg-gray-50/80 rounded-3xl w-full md:w-fit">
-                    {/* using text-shadow to simulate bold text, for a smooth transition */}
-                    <label className="flex-1 text-center px-0.5 py-1.5 rounded-3xl font-medium text-slate-600 has-[input:checked]:text-gray-50 has-[input:checked]:bg-red-500/85 has-[input:checked]:font-bold has-[input:checked]:tracking-wider hover:tracking-wider transition-all duration-150 ease-in">
+    return (
+        <div className="m-2 px-2 py-4">
+            <form className="flex flex-col items-start gap-2 space-y-1 md:flex-row" onSubmit={handleTaskSubmit}>
+                <div
+                    className="bg-white-50 flex w-full flex-1 flex-row justify-between gap-1 rounded-3xl border
+                        border-sky-950/40 bg-gray-50/80 p-1 md:w-fit"
+                >
+                    <label
+                        className="flex-1 rounded-3xl px-0.5 py-1 text-center font-medium text-slate-600 transition-all
+                            duration-150 ease-in hover:tracking-wider has-[input:checked]:bg-red-500/85
+                            has-[input:checked]:font-bold has-[input:checked]:tracking-wider
+                            has-[input:checked]:text-gray-50"
+                    >
                         <input
                             className="peer hidden"
-                            type="radio"
+                            type="checkbox"
                             name="priority"
                             value="high"
-                            // checked
+                            checked={formData.priority === "high"}
+                            onChange={handlePriorityChange}
+                            // onClick={handleRadioClick}
                         />
                         <span className="px-2 py-1">High</span>
                     </label>
-                    <label className="flex-1 text-center px-0.5 py-1.5 rounded-3xl font-medium text-slate-600 has-[input:checked]:text-gray-50 has-[input:checked]:bg-yellow-500/85 has-[input:checked]:font-bold has-[input:checked]:tracking-wider hover:tracking-wider transition-all duration-150 ease-in">
+                    <label
+                        className="flex-1 rounded-3xl px-0.5 py-1 text-center font-medium text-slate-600 transition-all
+                            duration-150 ease-in hover:tracking-wider has-[input:checked]:bg-yellow-500/85
+                            has-[input:checked]:font-bold has-[input:checked]:tracking-wider
+                            has-[input:checked]:text-gray-50"
+                    >
                         <input
                             className="hidden"
-                            type="radio"
+                            type="checkbox"
                             name="priority"
                             value="medium"
+                            checked={formData.priority === "medium"}
+                            onChange={handlePriorityChange}
                         />
                         <span className="px-2 py-1">Medium</span>
                     </label>
 
-                    <label className="flex-1 text-center px-0.5 py-1.5 rounded-3xl font-medium text-slate-600 has-[input:checked]:text-gray-50 has-[input:checked]:bg-lime-500/85 has-[input:checked]:font-bold has-[input:checked]:tracking-wider hover:tracking-wider transition-all duration-150 ease-in">
+                    <label
+                        className="flex-1 rounded-3xl px-0.5 py-1 text-center font-medium text-slate-600 transition-all
+                            duration-150 ease-in hover:tracking-wider has-[input:checked]:bg-lime-500/85
+                            has-[input:checked]:font-bold has-[input:checked]:tracking-wider
+                            has-[input:checked]:text-gray-50"
+                    >
                         <input
                             className="hidden"
-                            type="radio"
+                            type="checkbox"
                             name="priority"
                             value="low"
+                            checked={formData.priority === "low"}
+                            onChange={handlePriorityChange}
                         />
                         <span className="px-2 py-1">Low</span>
                     </label>
                 </div>
 
-                <button
-                    type="submit"
-                    className="rounded-3xl px-4 py-2 bg-slate-600 hover:bg-slate-700 hover:tracking-wider text-white font-medium  w-full md:w-fit transition-all"
-                >
-                    Add Task
-                </button>
+                <div className="relative w-full flex-2 md:w-fit">
+                    <input
+                        type="text"
+                        placeholder="Enter a new task.."
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleTitleChange}
+                        className="w-full rounded-3xl border border-sky-950/40 bg-gray-50/80 px-4 py-2 pe-11
+                            outline-none focus:ring-1 focus:ring-sky-900/70 transition-all ease-in"
+                    />
+                    <button
+                        type="submit"
+                        className="absolute end-0 top-1/2 mx-1 h-[85%] -translate-y-1/2 transform rounded-3xl
+                            bg-sky-900/80 p-2 text-white transition-all enabled:hover:bg-sky-900/90
+                            disabled:cursor-not-allowed disabled:bg-slate-500/70"
+                        disabled={!formData.title.trim()}
+                    >
+                        <FaPlus className="h-full w-full" />
+                    </button>
+                </div>
             </form>
         </div>
     );

@@ -2,12 +2,34 @@ import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 
-// import {
-//     FaUser,
-//     FaUserSecret,
-// } from "react-icons/fa6";
+import {
+    FaUser,
+    FaUserSecret,
+    FaUserAstronaut,
+    FaUserNinja,
+    FaUserTie,
+    FaUserNurse,
+    FaUserDoctor,
+    FaUserGraduate,
+    FaUserInjured,
+} from "react-icons/fa6";
 
-function Profile() {
+const icons = [
+    { component: FaUser, label: "User" },
+    { component: FaUserTie, label: "Tie" },
+    { component: FaUserNurse, label: "Nurse" },
+    { component: FaUserDoctor, label: "Doctor" },
+    { component: FaUserSecret, label: "Secret" },
+    { component: FaUserGraduate, label: "Graduate" },
+    { component: FaUserAstronaut, label: "Astronaut" },
+    { component: FaUserNinja, label: "Ninja" },
+    { component: FaUserInjured, label: "Injured" },
+];
+
+// todo: momken n2asem el saf7a l 7eteten wa7da zy settings wl tanya zy your stats aw 7aga keda ya3ni..
+// 34an bsara7a say7a awi kedaaa
+
+function Profile({ updateIcon }) {
     const savedTasks = JSON.parse(localStorage.getItem("userTasks")) || [];
     const [username, setUsername] = useState(() => {
         const value = JSON.parse(localStorage.getItem("username"));
@@ -24,6 +46,12 @@ function Profile() {
         // console.log("username save");
         localStorage.setItem("username", JSON.stringify(username === "Anonymous User" ? "" : username));
         alert("Username updated!");
+    };
+
+    const handleUserIconChange = (event) => {
+        // console.log(event.target.value);
+        localStorage.setItem("userIcon", event.target.value);
+        updateIcon(event.target.value);
     };
 
     // todo: clear my data button or smth
@@ -51,6 +79,29 @@ function Profile() {
                         {/* Save */}
                         <MdSave className="h-full w-full" />
                     </button>
+                </div>
+
+                <div className="">
+                    <p className="text-sm font-medium ms-2 mb-2">Your Icon</p>
+                    <div className="grid grid-cols-3 min-[380px]:grid-cols-4 min-[500px]:grid-cols-5 gap-3">
+                        {icons.map(({ component: Icon, label }) => (
+                            <label
+                                key={label}
+                                className="p-2 w-fit m-auto rounded-xl border border-slate-400/40 bg-slate-50
+                                    text-slate-800 has-[input:checked]:border-2 has-[input:checked]:border-slate-500
+                                    hover:border-slate-500/40 hover:border-2 transition-all duration-50"
+                            >
+                                <input
+                                    className="hidden"
+                                    name="icon"
+                                    type="radio"
+                                    value={label}
+                                    onClick={handleUserIconChange}
+                                />
+                                <Icon className="w-8 h-8" />
+                            </label>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="space-y-2 text-slate-800">

@@ -6,10 +6,8 @@ import AddTask from "../components/AddTask";
 function Home() {
     const savedTasks = localStorage.getItem("userTasks");
 
-    const [filters, setFilters] = useState({ hideCompleted: false });
-    const [tasks, setTasks] = useState(() =>
-        savedTasks ? JSON.parse(savedTasks) : [],
-    );
+    const [filters, setFilters] = useState({ hideCompleted: false, priority: [], searchQuery: "" });
+    const [tasks, setTasks] = useState(() => (savedTasks ? JSON.parse(savedTasks) : []));
     const username = JSON.parse(localStorage.getItem("username"));
 
     // save tasks to localStorage on tasks state change
@@ -53,8 +51,13 @@ function Home() {
                 .toSorted((a, b) => a.completed - b.completed)
                 // apply hideCompleted filter
                 .filter((task) => {
-                    if (filters.hideCompleted) return !task.completed;
-                    return true;
+                    return (
+                        (filters.hideCompleted ? !task.completed : true) &&
+                        (filters.priority.length !== 0 ? filters.priority.includes(task.priority) : true) &&
+                        (filters.searchQuery
+                            ? task.title.toLowerCase().includes(filters.searchQuery.toLowerCase())
+                            : true)
+                    );
                 })
         );
     };

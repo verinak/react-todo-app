@@ -8,12 +8,6 @@ import { LiaSearchSolid } from "react-icons/lia";
 function Filters({ filters, sendFitlers }) {
     const [hideFilters, setHideFilters] = useState(true);
 
-    // const [filters, setFilters] = useState({
-    //     hideCompleted: false,
-    //     // todo: priority filter
-    //     // priority: "all",
-    // });
-
     const toggleFiltersMenu = () => {
         setHideFilters((prev) => !prev);
     };
@@ -29,6 +23,17 @@ function Filters({ filters, sendFitlers }) {
 
         // setFilters(newFilters);
         sendFitlers(newFilters);
+    };
+
+    const handlePriorityChange = (clickedPriority) => {
+        const priorityList = filters.priority.includes(clickedPriority)
+            ? filters.priority.filter((priority) => priority !== clickedPriority) // if already in list remove
+            : [...filters.priority, clickedPriority]; // else add to list
+        handleFilterChange("priority", priorityList);
+    };
+
+    const clearFilters = () => {
+        sendFitlers({ hideCompleted: false, priority: [], searchQuery: "" });
     };
 
     return (
@@ -49,7 +54,9 @@ function Filters({ filters, sendFitlers }) {
                             focus:outline-slate-500"
                         type="text"
                         name="search"
+                        value={filters.searchQuery}
                         placeholder="Search tasks.."
+                        onChange={(event) => handleFilterChange("searchQuery", event.target.value)}
                     />
                 </div>
                 <button className="md:hidden relative ml-4" type="button" onClick={toggleFiltersMenu}>
@@ -72,7 +79,7 @@ function Filters({ filters, sendFitlers }) {
                             <input
                                 type="checkbox"
                                 className="peer sr-only"
-                                // checked={filters.hideCompleted}
+                                checked={filters.hideCompleted}
                                 onChange={(event) => handleFilterChange("hideCompleted", event.target.checked)}
                             />
 
@@ -93,7 +100,14 @@ function Filters({ filters, sendFitlers }) {
                                     has-[input:checked]:text-black/80 has-[input:checked]:bg-red-100/60 cursor-pointer
                                     transition-all ease-in duration-100"
                             >
-                                <input className="hidden" type="checkbox" name="priorityCheck" value="high" />
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="priorityCheck"
+                                    value="high"
+                                    checked={filters.priority.includes("high")}
+                                    onChange={(event) => handlePriorityChange(event.target.value)}
+                                />
                                 <span className="">High</span>
                             </label>
                             <label
@@ -102,7 +116,14 @@ function Filters({ filters, sendFitlers }) {
                                     has-[input:checked]:text-black/80 has-[input:checked]:bg-yellow-100/60
                                     cursor-pointer transition-all ease-in duration-100"
                             >
-                                <input className="hidden" type="checkbox" name="priorityCheck" value="medium" />
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="priorityCheck"
+                                    value="medium"
+                                    checked={filters.priority.includes("medium")}
+                                    onChange={(event) => handlePriorityChange(event.target.value)}
+                                />
                                 <span className="">Medium</span>
                             </label>
                             <label
@@ -111,7 +132,14 @@ function Filters({ filters, sendFitlers }) {
                                     has-[input:checked]:text-black/80 has-[input:checked]:bg-lime-100/60 cursor-pointer
                                     transition-all ease-in duration-100"
                             >
-                                <input className="hidden" type="checkbox" name="priorityCheck" value="low" />
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="priorityCheck"
+                                    value="low"
+                                    checked={filters.priority.includes("low")}
+                                    onChange={(event) => handlePriorityChange(event.target.value)}
+                                />
                                 <span className="">Low</span>
                             </label>
                             <label
@@ -120,19 +148,27 @@ function Filters({ filters, sendFitlers }) {
                                     has-[input:checked]:text-black/80 has-[input:checked]:bg-gray-100/60 cursor-pointer
                                     transition-all ease-in duration-100"
                             >
-                                <input className="hidden" type="checkbox" name="priorityCheck" value="none" />
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="priorityCheck"
+                                    value="none"
+                                    checked={filters.priority.includes("none")}
+                                    onChange={(event) => handlePriorityChange(event.target.value)}
+                                />
                                 <span className="">No Priority</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
-                <button className="mt-6 px-2 py-1 rounded-lg border-2 border-slate-800 w-36 hover:bg-slate-100">
+                <button
+                    className="mt-6 px-2 py-1 rounded-lg border-2 border-slate-800 w-36 hover:bg-slate-100"
+                    onClick={clearFilters}
+                >
                     Clear Filters
                 </button>
             </div>
-
-            {/* todo: reset filters button */}
         </div>
     );
 }

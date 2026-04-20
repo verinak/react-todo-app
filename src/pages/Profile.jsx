@@ -88,8 +88,8 @@ function Profile({ updateIcon }) {
                             <label
                                 key={label}
                                 className="p-2 w-fit m-auto rounded-xl border border-slate-400/40 bg-slate-50
-                                    text-slate-800 has-[input:checked]:border-2 has-[input:checked]:border-slate-500
-                                    hover:border-slate-500/40 hover:border-2 transition-all duration-50"
+                                    text-slate-800 outline-2 outline-transparent has-[input:checked]:outline-slate-500
+                                    hover:outline-slate-500/40 transition-all duration-50"
                             >
                                 <input
                                     className="hidden"
@@ -115,6 +115,11 @@ function Profile({ updateIcon }) {
                         Good job!
                     </p>
                 </div>
+
+                {/* <button className="rounded-xl bg-rose-600 hover:bg-rose-600/80 text-white text-sm font-medium px-3
+                    py-1.5">
+                    Clear My Data
+                </button> */}
             </div>
         </div>
     );

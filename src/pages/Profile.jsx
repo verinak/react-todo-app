@@ -33,13 +33,19 @@ function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
     const savedTasks = JSON.parse(localStorage.getItem("userTasks")) || [];
     const [localUsername, setLocalUsername] = useState(username);
 
-    // todo: clear my data button or smth
+    const clearData = () => {
+        updateUsername("");
+        updateIcon("");
+        localStorage.clear(); // 7asa eni akid m4 el mafroud a3mel keda
+        // i think i should move task state to App too.. howa hena by rerender el component keda keda 34an el username wl icon state byet8ayaro
+        // bs lw mkanou4 byet8ayaro mkanet4 el savedTasks hayet3amalaha update w kan hayfdal katb x out of y badal 0 out of 0
+    };
+
     return (
         <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center shadow-md">
             <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit">
                 {/* username input */}
                 <div className="flex flex-col md:flex-row gap-3 w-full relative">
-                    {/* todo: maybe consider using floating labels */}
                     <input
                         type="text"
                         value={localUsername}
@@ -95,10 +101,13 @@ function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
                     </p>
                 </div>
 
-                {/* <button className="rounded-xl bg-rose-600 hover:bg-rose-600/80 text-white text-sm font-medium px-3
-                    py-1.5">
+                <button
+                    className="rounded-xl border-2 border-rose-800 hover:bg-red-50/80 text-red-800 text-sm font-medium
+                        px-3 py-1.5 transition"
+                    onClick={clearData}
+                >
                     Clear My Data
-                </button> */}
+                </button>
             </div>
         </div>
     );

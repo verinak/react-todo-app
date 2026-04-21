@@ -29,43 +29,21 @@ const icons = [
 // todo: momken n2asem el saf7a l 7eteten wa7da zy settings wl tanya zy your stats aw 7aga keda ya3ni..
 // 34an bsara7a say7a awi kedaaa
 
-function Profile({ updateIcon }) {
+function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
     const savedTasks = JSON.parse(localStorage.getItem("userTasks")) || [];
-    const [username, setUsername] = useState(() => {
-        const value = JSON.parse(localStorage.getItem("username"));
-        return value || "Anonymous User";
-    });
-
-    const handleUsernameChange = (event) => {
-        // console.log("username change");
-        // console.log(event.target.value);
-        setUsername(event.target.value);
-    };
-
-    const handleUsernameSave = () => {
-        // console.log("username save");
-        localStorage.setItem("username", JSON.stringify(username === "Anonymous User" ? "" : username));
-        alert("Username updated!");
-    };
-
-    const handleUserIconChange = (event) => {
-        // console.log(event.target.value);
-        localStorage.setItem("userIcon", event.target.value);
-        updateIcon(event.target.value);
-    };
+    const [localUsername, setLocalUsername] = useState(username);
 
     // todo: clear my data button or smth
     return (
         <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center shadow-md">
             <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit">
-                {/* todo: user icons :( */}
                 {/* username input */}
                 <div className="flex flex-col md:flex-row gap-3 w-full relative">
                     {/* todo: maybe consider using floating labels */}
                     <input
                         type="text"
-                        value={username}
-                        onChange={handleUsernameChange}
+                        value={localUsername}
+                        onChange={(event) => setLocalUsername(event.target.value)}
                         placeholder="What should we call you?"
                         className="w-full rounded-3xl border border-sky-950/40 bg-gray-50/80 px-4 py-2 pe-11
                             outline-none focus:ring-1 focus:ring-sky-900/70 transition-all ease-in"
@@ -74,7 +52,7 @@ function Profile({ updateIcon }) {
                     <button
                         className="absolute end-0 top-1/2 mx-1 h-[85%] -translate-y-1/2 transform rounded-3xl p-2
                             bg-sky-900/80 text-white enabled:hover:bg-sky-900/90 transition-all"
-                        onClick={handleUsernameSave}
+                        onClick={() => updateUsername(localUsername)}
                     >
                         {/* Save */}
                         <MdSave className="h-full w-full" />
@@ -96,7 +74,8 @@ function Profile({ updateIcon }) {
                                     name="icon"
                                     type="radio"
                                     value={label}
-                                    onClick={handleUserIconChange}
+                                    checked={label === userIconLabel}
+                                    onClick={(event) => updateIcon(event.target.value)}
                                 />
                                 <Icon className="w-8 h-8" />
                             </label>

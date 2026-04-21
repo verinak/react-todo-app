@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Task from "./Task";
 
+// todo: consider adding pagination maybe
 function TaskList({ tasks, sendTaskDelete, sendTaskCompleted }) {
     // const [tasks, setTasks] = useState(taskData);
 

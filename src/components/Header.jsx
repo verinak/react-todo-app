@@ -26,60 +26,41 @@ const icons = [
     { component: FaUserInjured, label: "Injured" },
 ];
 
-function Header({ userIconLabel }) {
-    // todo:
+function Header({ username, userIconLabel }) {
     // const userIconLabel = localStorage.getItem("userIcon") || "User";
-    const userIcon = icons.find((icon) => icon.label === userIconLabel);
+    const userIcon = icons.find((icon) => icon.label === userIconLabel) || icons[0];
 
     const navBarStyles = ({ isActive }) => {
-        let styles = "px-4 md:px-5 py-0.5 rounded-3xl transition-all relative";
-        // todo: that underline is so ugly bs ana 3yza anam 5alas fa to fix later ba2a
-        styles += isActive
-            ? " tracking-wider underline underline-offset-5 decoration-2 decoration-slate-800"
-            : " hover:tracking-wider";
-        // console.log(isActive);
-        // console.log(styles);
+        let styles = "w-8 md:w-fit h-full mx-4 absolute end-0 top-0 transition-all duration-75 ";
+        styles += isActive ? " border-b-3 border-slate-800 " : " hover:border-b-3 hover:border-slate-600/60";
         return styles;
     };
 
     return (
-        <header className="bg-slate-50 text-slate-800 px-2 md:px-10 py-3 flex flex-col md:flex-row items-center gap-2">
-            <div className="flex flex-1 gap-3">
+        <header className="bg-slate-50 text-slate-800 px-4 md:px-8 relative flex justify-center">
+            <NavLink to="/home" className="w-fit px-2 py-3 flex gap-3">
                 <LuNotebookPen className="inline text-2xl" />
                 <h1 className="font-extrabold text-xl">ReDoist</h1>
-            </div>
+            </NavLink>
 
-            <nav className="flex flex-wrap gap-3 justify-center text-sm md:text-base font-medium">
-                <NavLink
-                    to="/home"
-                    className={navBarStyles}
-                    // activeClassName="border-black"
+            <NavLink to="/profile" className={navBarStyles}>
+                {/* heya btnot l fo2 fl screens el so8ayara di bs ana bgad m4 adra di azbat 7aga wseltelha.. */}
+                <span
+                    className="absolute end-0 top-1/2 transform -translate-y-1/2 rounded-full border-2 size-8
+                        aspect-square pt-0.5 overflow-hidden md:hidden"
                 >
-                    Home
-                </NavLink>
-
-                <NavLink to="/profile" className={navBarStyles}>
-                    Profile
-                    {/* balafa2 gdan */}
-                    <span className="w-4 md:w-5 inline-block"></span>
-                    {
-                        <userIcon.component
-                            className="absolute end-0 top-1/2 mx-1 h-[90%] -translate-y-1/2 transform w-fit
-                                aspect-square inline-block rounded-3xl border-2 pt-0.5"
-                        />
-                    }
-                </NavLink>
-
-                <a
-                    className="px-4 md:px-5 py-0.5 rounded-3xl transition-all active:underline underline-offset-5
-                        decoration-2 decoration-slate-800 active:tracking-wider hover:tracking-wider"
-                    href="https://github.com/verinak"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Contact
-                </a>
-            </nav>
+                    <userIcon.component className="w-full h-fit" />
+                </span>
+                <div className="transform translate-y-1/2 relative pr-9 hidden md:block">
+                    <span className="px-1 h-fit font-medium">{username || "Anonymous User"}</span>
+                    <span
+                        className="absolute end-0 top-1/2 transform -translate-y-1/2 rounded-full border-2 size-8
+                            aspect-square pt-0.5 overflow-hidden"
+                    >
+                        <userIcon.component className="w-full h-fit" />
+                    </span>
+                </div>
+            </NavLink>
         </header>
     );
 }

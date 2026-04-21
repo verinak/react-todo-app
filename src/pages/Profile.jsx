@@ -42,8 +42,8 @@ function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
     };
 
     return (
-        <div className="min-h-screen bg-slate-200 p-4 md:p-8 flex justify-center shadow-md">
-            <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit">
+        <div className="p-4 md:p-8 flex justify-center">
+            <div className="w-full max-w-md bg-white rounded-2xl p-6 space-y-6 h-fit shadow-sm">
                 {/* username input */}
                 <div className="flex flex-col md:flex-row gap-3 w-full relative">
                     <input

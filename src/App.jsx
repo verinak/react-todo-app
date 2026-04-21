@@ -26,22 +26,24 @@ function App() {
             <BrowserRouter basename="/react-todo-app">
                 <div className="min-h-screen flex flex-col">
                     <Header username={username} userIconLabel={userIcon} />
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/home" replace />} />
-                        <Route path="/home" element={<Home />} />
-                        <Route
-                            path="/profile"
-                            element={
-                                <Profile
-                                    username={username}
-                                    updateUsername={updateUsername}
-                                    userIconLabel={userIcon}
-                                    updateIcon={updateIcon}
-                                />
-                            }
-                        />
-                        <Route path="/task/:taskId" element={<TaskDetails />} />
-                    </Routes>
+                    <main className="flex-1 flex flex-col bg-slate-200">
+                        <Routes>
+                            <Route path="/" element={<Navigate to="/home" replace />} />
+                            <Route path="/home" element={<Home />} />
+                            <Route
+                                path="/profile"
+                                element={
+                                    <Profile
+                                        username={username}
+                                        updateUsername={updateUsername}
+                                        userIconLabel={userIcon}
+                                        updateIcon={updateIcon}
+                                    />
+                                }
+                            />
+                            <Route path="/task/:taskId" element={<TaskDetails />} />
+                        </Routes>
+                    </main>
                 </div>
             </BrowserRouter>
         </>

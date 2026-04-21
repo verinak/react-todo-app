@@ -81,7 +81,7 @@ function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
                                     type="radio"
                                     value={label}
                                     checked={label === userIconLabel}
-                                    onClick={(event) => updateIcon(event.target.value)}
+                                    onChange={(event) => updateIcon(event.target.value)}
                                 />
                                 <Icon className="w-8 h-8" />
                             </label>

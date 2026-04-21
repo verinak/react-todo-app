@@ -6,9 +6,9 @@ function TaskList({ tasks, sendTaskDelete, sendTaskCompleted }) {
     // const [tasks, setTasks] = useState(taskData);
 
     return (
-        <div className="m-2 p-6 md:text-lg flex-1 bg-white rounded-2xl shadow-md">
+        <div className="md:text-lg flex-1 py-4">
             {tasks.length === 0 ? (
-                <div className="text-center p-3">
+                <div className="text-center p-8">
                     <p>Nothing to see here!</p>
                     <p>Add some tasks to use this Todo App.</p>
                 </div>

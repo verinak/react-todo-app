@@ -7,24 +7,25 @@ import { Link } from "react-router-dom";
 function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const priorityColor = {
         high: {
-            default: "bg-red-100",
-            completed: "bg-red-50",
+            default: "red-500",
+            completed: "red-300",
         },
         medium: {
-            default: "bg-yellow-100",
-            completed: "bg-yellow-50",
+            default: "yellow-400",
+            completed: "yellow-200",
         },
         low: {
-            default: "bg-lime-100",
-            completed: "bg-lime-50",
+            default: "lime-500",
+            completed: "lime-300",
         },
         none: {
-            default: "bg-gray-100",
-            completed: "bg-gray-50",
+            default: "gray-500",
+            completed: "gray-300",
         },
     };
-    const bgColor =
-        priorityColor[task.priority][task.completed ? "completed" : "default"];
+    const accentColorText = "text-" + priorityColor[task.priority][task.completed ? "completed" : "default"];
+    const accentColorBorder = "border-" + priorityColor[task.priority][task.completed ? "completed" : "default"];
+    const bgColor = task.completed ? "bg-gray-50/80" : "bg-white";
     const textColor = task.completed ? "text-gray-600" : "text-slate-800";
 
     const handleDelete = () => {
@@ -34,30 +35,27 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const handleCompletedToggle = () => {
         sendTaskCompleted(task.id, !task.completed);
     };
+
     return (
-        <div
-            className={`m-2 p-1 md:p-2 flex items-center rounded-xl ${bgColor} ${textColor}`}
-        >
-            <label className="px-2 py-1 cursor-pointer">
-                <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={handleCompletedToggle}
-                    className="hidden"
-                />
+        <div className={`flex border-b border-slate-500/20 py-2.5 mx-2 ${textColor}`}>
+            <label
+                className={`cursor-pointer ${accentColorText} border-e-2 ${accentColorBorder} flex items-center px-2
+                    pe-3`}
+            >
+                <input type="checkbox" checked={task.completed} onChange={handleCompletedToggle} className="hidden" />
                 {task.completed ? <FaRegCircleCheck /> : <FaRegCircle />}
             </label>
             {/* <button className="px-2 py-1" onClick={handleCompletedToggle}>
                 {task.completed ? <FaRegCircleCheck /> : <FaRegCircle />}
                 </button> */}
 
-            <div className="px-2 py-1 flex-1">
+            <div className="flex-1 cursor-pointer ps-1 py-0.5">
                 <Link to={`/task/${task.id}`}>
                     <div className="px-2 py-1">{task.title}</div>
                 </Link>
             </div>
 
-            <button className="px-2 py-1 cursor-pointer" onClick={handleDelete}>
+            <button className="cursor-pointer flex items-center px-2" onClick={handleDelete}>
                 <CgTrashEmpty />
             </button>
         </div>

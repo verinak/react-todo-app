@@ -33,8 +33,9 @@ function AddTask({ sendNewTask }) {
     };
 
     return (
-        <div className="m-2 px-2 py-4">
-            <form className="flex flex-col items-start gap-2 space-y-1 md:flex-row" onSubmit={handleTaskSubmit}>
+        // <div className="m-2 px-2 py-4">
+        <div className="px-2">
+            <form className="flex flex-col-reverse items-start gap-2 space-y-1 md:flex-row" onSubmit={handleTaskSubmit}>
                 <div
                     className="bg-white-50 flex w-full flex-1 flex-row justify-between gap-1 rounded-3xl border
                         border-sky-950/40 bg-gray-50/80 p-1 md:w-fit"

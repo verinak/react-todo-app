@@ -24,23 +24,25 @@ function App() {
         <>
             {/* <BrowserRouter> */}
             <BrowserRouter basename="/react-todo-app">
-                <Header username={username} userIconLabel={userIcon} />
-                <Routes>
-                    <Route path="/" element={<Navigate to="/home" replace />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route
-                        path="/profile"
-                        element={
-                            <Profile
-                                username={username}
-                                updateUsername={updateUsername}
-                                userIconLabel={userIcon}
-                                updateIcon={updateIcon}
-                            />
-                        }
-                    />
-                    <Route path="/task/:taskId" element={<TaskDetails />} />
-                </Routes>
+                <div className="min-h-screen flex flex-col">
+                    <Header username={username} userIconLabel={userIcon} />
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/home" replace />} />
+                        <Route path="/home" element={<Home />} />
+                        <Route
+                            path="/profile"
+                            element={
+                                <Profile
+                                    username={username}
+                                    updateUsername={updateUsername}
+                                    userIconLabel={userIcon}
+                                    updateIcon={updateIcon}
+                                />
+                            }
+                        />
+                        <Route path="/task/:taskId" element={<TaskDetails />} />
+                    </Routes>
+                </div>
             </BrowserRouter>
         </>
     );

@@ -38,8 +38,9 @@ function Filters({ filters, sendFitlers }) {
 
     return (
         <div
-            className="bg-slate-50 md:w-70 md:min-w-1/4 md:max-w-1/2 px-6 py-4 md:py-8 m-2 rounded-2xl text-sm
-                md:text-base shadow-md text-slate-700"
+            className="bg-slate-50 md:w-70 md:min-w-1/4 md:max-w-1/2 px-6 py-4 md:py-8 rounded-t-2xl md:rounded-r-none
+                md:rounded-l-2xl text-sm md:text-base text-slate-700 border-b-2 md:border-b-0 md:border-e-2
+                border-slate-600/20"
         >
             <div className="flex">
                 {/* <p className="flex-1 font-bold text-base md:text-lg">Filters</p> */}

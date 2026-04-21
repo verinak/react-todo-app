@@ -63,16 +63,21 @@ function Home() {
 
     return (
         <>
-            <div className="flex flex-col min-h-screen p-2 md:p-4 bg-slate-200">
-                <h2 className="text-center font-bold text-2xl my-2 text-slate-800"></h2>
-                <AddTask sendNewTask={receiveNewTask} />
-                <div className="flex-1 flex flex-col md:flex-row h-full">
-                    <Filters filters={filters} sendFitlers={receiveFilters} />
-                    <TaskList
-                        tasks={filterTasks()}
-                        sendTaskDelete={receiveTaskDelete}
-                        sendTaskCompleted={receiveTaskCompleted}
-                    />
+            {/* too much flexboxs bgad eh da.. */}
+            <div className="flex flex-col flex-1 py-4 md:py-8 bg-slate-200">
+                {/* <h2 className="text-center font-bold text-2xl my-2 text-slate-800"></h2> */}
+                <div className="w-[90%] flex-1 flex flex-col mx-auto space-y-4 md:space-y-8">
+                    <AddTask sendNewTask={receiveNewTask} />
+
+                    {/* this is the div that should fill the available space  */}
+                    <div className="flex-1 flex flex-col md:flex-row h-full bg-white rounded-2xl shadow-sm">
+                        <Filters filters={filters} sendFitlers={receiveFilters} />
+                        <TaskList
+                            tasks={filterTasks()}
+                            sendTaskDelete={receiveTaskDelete}
+                            sendTaskCompleted={receiveTaskCompleted}
+                        />
+                    </div>
                 </div>
             </div>
         </>

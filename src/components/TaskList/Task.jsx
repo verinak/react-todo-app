@@ -7,24 +7,32 @@ import { Link } from "react-router-dom";
 function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const priorityColor = {
         high: {
-            default: "red-500",
-            completed: "red-300",
+            defaultText: "text-red-500",
+            completedText: "text-red-300",
+            defaultBorder: "border-red-500",
+            completedBorder: "border-red-300",
         },
         medium: {
-            default: "yellow-400",
-            completed: "yellow-200",
+            defaultText: "text-yellow-400",
+            completedText: "text-yellow-200",
+            defaultBorder: "border-yellow-400",
+            completedBorder: "border-yellow-200",
         },
         low: {
-            default: "lime-500",
-            completed: "lime-300",
+            defaultText: "text-lime-500",
+            completedText: "text-lime-300",
+            defaultBorder: "border-lime-500",
+            completedBorder: "border-lime-300",
         },
         none: {
-            default: "gray-500",
-            completed: "gray-300",
+            defaultText: "text-gray-500",
+            completedText: "text-gray-300",
+            defaultBorder: "text-gray-500",
+            completedBorder: "text-gray-300",
         },
     };
-    const accentColorText = "text-" + priorityColor[task.priority][task.completed ? "completed" : "default"];
-    const accentColorBorder = "border-" + priorityColor[task.priority][task.completed ? "completed" : "default"];
+    const accentColorText = priorityColor[task.priority][task.completed ? "completedText" : "defaultText"];
+    const accentColorBorder = priorityColor[task.priority][task.completed ? "completedBorder" : "defaultBorder"];
     const bgColor = task.completed ? "bg-gray-50/80" : "bg-white";
     const textColor = task.completed ? "text-gray-600" : "text-slate-800";
 
@@ -37,7 +45,7 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     };
 
     return (
-        <div className={`flex border-b border-slate-500/20 py-2.5 mx-2 ${textColor}`}>
+        <div className={`flex border-b border-slate-500/20 py-2.5 mx-2 ${bgColor} ${textColor}`}>
             <label
                 className={`cursor-pointer ${accentColorText} border-e-2 ${accentColorBorder} flex items-center px-2
                     pe-3`}

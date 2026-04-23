@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
 import { useState } from "react";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
 function App() {
     // todo: move to context maybe ??
@@ -46,6 +47,7 @@ function App() {
                             <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
                         </Routes>
                     </main>
+                    <Footer />
                 </div>
             </BrowserRouter>
         </>

@@ -29,6 +29,8 @@ function Home() {
     };
 
     const receiveTaskDelete = (taskId) => {
+        const confirm = window.confirm("Are you sure you want to delete this task?");
+        if (!confirm) return;
         setTasks(tasks.filter((task) => task.id !== taskId));
     };
 

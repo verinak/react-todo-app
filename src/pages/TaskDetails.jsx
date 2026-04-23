@@ -85,6 +85,8 @@ function TaskDetails() {
     };
 
     const deleteTask = () => {
+        const confirm = window.confirm("Are you sure you want to delete this task?");
+        if (!confirm) return;
         setTasks(tasks.filter((task) => task.id !== taskId));
         navigate("/home");
     };

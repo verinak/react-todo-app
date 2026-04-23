@@ -34,6 +34,8 @@ function Profile({ username, updateUsername, userIconLabel, updateIcon }) {
     const [localUsername, setLocalUsername] = useState(username);
 
     const clearData = () => {
+        const confirm = window.confirm("Are you sure? This will delete all your data, including all saved tasks.");
+        if (!confirm) return;
         updateUsername("");
         updateIcon("");
         localStorage.clear(); // 7asa eni akid m4 el mafroud a3mel keda

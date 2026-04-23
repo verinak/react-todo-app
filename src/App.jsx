@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
 import { useState } from "react";
+import NotFound from "./pages/NotFound";
 
 function App() {
     // todo: move to context maybe ??
@@ -42,6 +43,7 @@ function App() {
                                 }
                             />
                             <Route path="/task/:taskId" element={<TaskDetails />} />
+                            <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
                         </Routes>
                     </main>
                 </div>

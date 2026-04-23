@@ -37,7 +37,10 @@ function Header({ username, userIconLabel }) {
     };
 
     return (
-        <header className="bg-slate-50 text-slate-800 px-4 md:px-8 relative flex justify-center">
+        <header
+            className="bg-slate-50 text-slate-800 px-4 md:px-8 relative flex justify-center border-b border-gray-300
+                shadow-xs sticky top-0 z-30"
+        >
             <NavLink to="/home" className="w-fit px-2 py-3 flex gap-3">
                 <LuNotebookPen className="inline text-2xl" />
                 <h1 className="font-extrabold text-xl">ReDoist</h1>

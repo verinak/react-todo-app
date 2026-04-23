@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Profile from "./pages/Profile";
 import TaskDetails from "./pages/TaskDetails";
 import { useState } from "react";
@@ -24,8 +24,7 @@ function App() {
 
     return (
         <>
-            {/* <BrowserRouter> */}
-            <BrowserRouter basename="/react-todo-app">
+            <HashRouter>
                 <div className="min-h-screen flex flex-col">
                     <Header username={username} userIconLabel={userIcon} />
                     <main className="flex-1 flex flex-col bg-slate-200">
@@ -49,7 +48,7 @@ function App() {
                     </main>
                     <Footer />
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </>
     );
 }

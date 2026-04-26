@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import Filters from "../components/Filters";
 import TaskList from "../components/TaskList/TaskList";
 import AddTask from "../components/AddTask";
+import { isBefore, isAfter, isWithinInterval, differenceInCalendarDays } from "date-fns";
 
 function Home() {
     const savedTasks = localStorage.getItem("userTasks");
 
-    const [filters, setFilters] = useState({ hideCompleted: false, priority: [], searchQuery: "" });
+    const [filters, setFilters] = useState({
+        hideCompleted: false,
+        priority: [],
+        searchQuery: "",
+        overdueOnly: false,
+        startDate: "",
+        endDate: "",
+    });
     const [tasks, setTasks] = useState(() => (savedTasks ? JSON.parse(savedTasks) : []));
 
     // save tasks to localStorage on tasks state change
@@ -16,6 +24,7 @@ function Home() {
     }, [tasks]);
 
     const receiveFilters = (filters) => {
+        // console.log(filters);
         setFilters(filters);
     };
 
@@ -45,9 +54,23 @@ function Home() {
         );
     };
 
+    const isInFilterInterval = (date) => {
+        if (!filters.startDate) {
+            return isAfter(date, filters.startDate);
+        }
+        if (!filters.endDate) {
+            return isBefore(date, filters.endDate);
+        }
+        return isWithinInterval(date, { start: filters.startDate, end: filters.endDate });
+    };
+
     const filterTasks = () => {
         return (
             tasks
+                // sort by due date ascending, keep empty dates at the bottom
+                .toSorted((a, b) => {
+                    return new Date(a.dueDate || "9999-01-01") - new Date(b.dueDate || "9999-01-01");
+                })
                 // always show completes tasks at the bottom
                 .toSorted((a, b) => a.completed - b.completed)
                 // apply hideCompleted filter
@@ -55,6 +78,11 @@ function Home() {
                     return (
                         (filters.hideCompleted ? !task.completed : true) &&
                         (filters.priority.length !== 0 ? filters.priority.includes(task.priority) : true) &&
+                        (filters.startDate || filters.endDate ? isInFilterInterval(task.dueDate) : true) &&
+                        // 7asa el kalam da m7tag yeb2a f helper functions
+                        (filters.overdueOnly
+                            ? differenceInCalendarDays(task.dueDate, new Date()) < 0 && !task.completed
+                            : true) &&
                         (filters.searchQuery
                             ? task.title.toLowerCase().includes(filters.searchQuery.toLowerCase())
                             : true)

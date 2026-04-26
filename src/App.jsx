@@ -8,6 +8,19 @@ import { useState } from "react";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 
+import { enGB } from "date-fns/locale";
+import { registerLocale } from "react-datepicker";
+
+const enEG = {
+    ...enGB,
+    options: {
+        ...enGB.options,
+        weekStartsOn: 6, // 0 = Sunday, 6 = Saturday
+    },
+};
+
+registerLocale("en-EG", enEG);
+
 function App() {
     // todo: move to context maybe ??
     const [username, setUsername] = useState(localStorage.getItem("username"));

@@ -9,6 +9,7 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { FaRegCircle, FaRegCircleCheck } from "react-icons/fa6";
+import DatePicker from "react-datepicker";
 
 function TaskDetails() {
     const { taskId } = useParams();
@@ -77,6 +78,13 @@ function TaskDetails() {
         }));
     };
 
+    const handleDateChange = (value) => {
+        setEditData((prev) => ({
+            ...prev,
+            dueDate: value || "",
+        }));
+    };
+
     const saveTaskEdits = () => {
         // console.log(editData);
         const newTasks = tasks.map((task) => (task.id === taskId ? { ...task, ...editData } : task));
@@ -129,6 +137,37 @@ function TaskDetails() {
                                 onChange={handleTitleChange}
                             />
                         </div>
+                        {task.createDate && (
+                            <p className="mb-0 text-sm text-slate-700">
+                                Created:{" "}
+                                {new Date(task.createDate).toLocaleString("en-GB", {
+                                    dateStyle: "medium",
+                                    timeStyle: "short",
+                                    hour12: true,
+                                })}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <p className="mb-1 text-slate-500 font-medium text-sm md:text-base">Due Date</p>
+                        <DatePicker
+                            // className="min-h-10 w-full flex-1 rounded-3xl border border-sky-950/40 bg-gray-50/80 px-4
+                            //     py-1 text-slate-800"
+                            // wrapperClassName="w-full"
+                            className={`text-slate-800 font-medium rounded-xl outline-gray-400/60 py-1
+                                ${editMode ? "outline px-4" : "outline-0 px-0"} transition-all`}
+                            calendarClassName="border border-sky-950/40"
+                            selected={editData.dueDate}
+                            onChange={handleDateChange}
+                            locale="en-EG"
+                            dateFormat="eeee, MMMM d, yyyy"
+                            placeholderText="Add a due date.."
+                            todayButton="Today"
+                            disabled={!editMode}
+                            // showIcon
+                            // isClearable
+                        />
                     </div>
 
                     {/* priority */}

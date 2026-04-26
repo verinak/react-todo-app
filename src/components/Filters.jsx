@@ -4,9 +4,13 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icon
 import { ImSearch } from "react-icons/im";
 import { TbSearch } from "react-icons/tb";
 import { LiaSearchSolid } from "react-icons/lia";
+import { addDays, startOfDay, endOfDay } from "date-fns";
+import DatePicker from "react-datepicker";
 
 function Filters({ filters, sendFitlers }) {
     const [hideFilters, setHideFilters] = useState(true);
+    const [dateOption, setDateOption] = useState("");
+    const [dateInputs, setDateInputs] = useState({ startDate: "", endDate: "" });
 
     const toggleFiltersMenu = () => {
         setHideFilters((prev) => !prev);
@@ -32,8 +36,68 @@ function Filters({ filters, sendFitlers }) {
         handleFilterChange("priority", priorityList);
     };
 
+    // const calculateDateRange() {
+
+    // }
+
+    const handeDateOptionChange = (clickedOption) => {
+        const selectedOption = dateOption === clickedOption ? "" : clickedOption;
+        setDateOption(selectedOption);
+        // 7asa en ad habal
+        switch (selectedOption) {
+            case "overdue":
+                sendFitlers({ ...filters, overdueOnly: true, startDate: "", endDate: "" });
+                break;
+            case "today": {
+                const date = new Date();
+                console.log(date);
+                sendFitlers({ ...filters, overdueOnly: false, startDate: startOfDay(date), endDate: endOfDay(date) });
+                break;
+            }
+            case "tomorrow": {
+                const date = addDays(new Date(), 1);
+                sendFitlers({ ...filters, overdueOnly: false, startDate: startOfDay(date), endDate: endOfDay(date) });
+                break;
+            }
+            case "nextWeek": {
+                const date = new Date();
+                sendFitlers({
+                    ...filters,
+                    overdueOnly: false,
+                    startDate: startOfDay(date),
+                    endDate: endOfDay(addDays(date, 7)),
+                });
+                break;
+            }
+            case "custom": {
+                sendFitlers({ ...filters, overdueOnly: false, startDate: "", endDate: "" }); // reset filters
+                setDateInputs({ startDate: "", endDate: "" }); // reset date inputs
+                break;
+            }
+            default:
+                sendFitlers({ ...filters, overdueOnly: false, startDate: "", endDate: "" }); // reset filters
+                break;
+        }
+    };
+
+    const handleCustomDateChange = (key, value) => {
+        // is it stupid to keep two states with start and end dates? yeah probably
+        // but i don't like how the custom date input shows other selected date ranges while it's collapsing fa ma3le4 ba2a
+        setDateInputs({ ...dateInputs, [key]: value });
+        sendFitlers({ ...filters, [key]: value });
+    };
+
     const clearFilters = () => {
-        sendFitlers({ hideCompleted: false, priority: [], searchQuery: "" });
+        setDateOption("");
+        setDateInputs({ startDate: "", endDate: "" });
+        sendFitlers({
+            hideCompleted: false,
+            priority: [],
+            searchQuery: "",
+            overdueOnly: false,
+            startDate: "",
+            endDate: "",
+        });
     };
 
     return (
@@ -68,7 +132,7 @@ function Filters({ filters, sendFitlers }) {
             {/* filters menu eli byet3emelaha show/hide */}
             <div
                 className={`transition-all linear h-fit overflow-hidden px-1
-                    ${hideFilters ? "max-h-0 duration-600" : "max-h-100 duration-900 "} md:max-h-full`}
+                    ${hideFilters ? "max-h-0 duration-600" : "max-h-200 duration-900 "} md:max-h-full`}
             >
                 {/* m3raf4 bsara7a leh w howa bye2fel abta2 mn w howa byefta7 fa ana lafa2taha */}
                 <div className="mt-6 space-y-4">
@@ -159,6 +223,118 @@ function Filters({ filters, sendFitlers }) {
                                 />
                                 <span className="">No Priority</span>
                             </label>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="font-medium mb-2">Due Date</p>
+                        <div className="flex flex-wrap gap-1.5">
+                            <label
+                                className="text-center py-1.5 px-2.5 font-medium rounded-xl border-2 border-slate-500/60
+                                    text-slate-600/90 bg-white has-[input:checked]:border-sky-950/50
+                                    has-[input:checked]:text-black/80 has-[input:checked]:bg-sky-100/60 cursor-pointer
+                                    transition-all ease-in duration-100"
+                            >
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="dateCheck"
+                                    value="overdue"
+                                    checked={dateOption.includes("overdue")}
+                                    onChange={(event) => handeDateOptionChange(event.target.value)}
+                                />
+                                <span className="">Overdue</span>
+                            </label>
+                            <label
+                                className="text-center py-1.5 px-2.5 font-medium rounded-xl border-2 border-slate-500/60
+                                    text-slate-600/90 bg-white has-[input:checked]:border-sky-950/50
+                                    has-[input:checked]:text-black/80 has-[input:checked]:bg-sky-100/60 cursor-pointer
+                                    transition-all ease-in duration-100"
+                            >
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="dateCheck"
+                                    value="today"
+                                    checked={dateOption.includes("today")}
+                                    onChange={(event) => handeDateOptionChange(event.target.value)}
+                                />
+                                <span className="">Today</span>
+                            </label>
+                            <label
+                                className="text-center py-1.5 px-2.5 font-medium rounded-xl border-2 border-slate-500/60
+                                    text-slate-600/90 bg-white has-[input:checked]:border-sky-950/50
+                                    has-[input:checked]:text-black/80 has-[input:checked]:bg-sky-100/60 cursor-pointer
+                                    transition-all ease-in duration-100"
+                            >
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="dateCheck"
+                                    value="tomorrow"
+                                    checked={dateOption.includes("tomorrow")}
+                                    onChange={(event) => handeDateOptionChange(event.target.value)}
+                                />
+                                <span className="">Tomorrow</span>
+                            </label>
+                            <label
+                                className="text-center py-1.5 px-2.5 font-medium rounded-xl border-2 border-slate-500/60
+                                    text-slate-600/90 bg-white has-[input:checked]:border-sky-950/50
+                                    has-[input:checked]:text-black/80 has-[input:checked]:bg-sky-100/60 cursor-pointer
+                                    transition-all ease-in duration-100"
+                            >
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="dateCheck"
+                                    value="nextWeek"
+                                    checked={dateOption.includes("nextWeek")}
+                                    onChange={(event) => handeDateOptionChange(event.target.value)}
+                                />
+                                <span className="">Next 7 Days</span>
+                            </label>
+                            <label
+                                className="text-center py-1.5 px-2.5 font-medium rounded-xl border-2 border-slate-500/60
+                                    text-slate-600/90 bg-white has-[input:checked]:border-sky-950/50
+                                    has-[input:checked]:text-black/80 has-[input:checked]:bg-sky-100/60 cursor-pointer
+                                    transition-all ease-in duration-100"
+                            >
+                                <input
+                                    className="hidden"
+                                    type="checkbox"
+                                    name="dateCheck"
+                                    value="custom"
+                                    checked={dateOption.includes("custom")}
+                                    onChange={(event) => handeDateOptionChange(event.target.value)}
+                                />
+                                <span className="">Custom Range</span>
+                            </label>
+                        </div>
+                        <div
+                            className={`pt-1 space-y-0.5 transition-all ease-in-out
+                                ${dateOption === "custom" ? "max-h-80 duration-500" : "max-h-0 overflow-hidden duration-300"}`}
+                        >
+                            <p className="text-sm font-medium mb-0">From: </p>
+                            <DatePicker
+                                className="rounded-xl border border-sky-950/40 px-3 py-1 text-slate-800 outline-0"
+                                calendarClassName="border border-sky-950/40"
+                                selected={dateInputs.startDate}
+                                onChange={(value) => handleCustomDateChange("startDate", startOfDay(value))}
+                                locale="en-EG"
+                                dateFormat="dd/MM/yyyy"
+                                placeholderText="From date.."
+                                todayButton="Today"
+                            />
+                            <p className="text-sm font-medium mb-0">To: </p>
+                            <DatePicker
+                                className="rounded-xl border border-sky-950/40 px-3 py-1 text-slate-800 outline-0"
+                                calendarClassName="border border-sky-950/40"
+                                selected={dateInputs.endDate}
+                                onChange={(value) => handleCustomDateChange("endDate", endOfDay(value))}
+                                locale="en-EG"
+                                dateFormat="dd/MM/yyyy"
+                                placeholderText="To date.."
+                                todayButton="Today"
+                            />
                         </div>
                     </div>
                 </div>

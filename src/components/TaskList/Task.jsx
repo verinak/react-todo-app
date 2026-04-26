@@ -3,6 +3,7 @@ import { FaRegCircle, FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdTrash } from "react-icons/io";
 import { CgTrashEmpty } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { differenceInCalendarDays } from "date-fns";
 
 function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const priorityColor = {
@@ -36,6 +37,20 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
     const bgColor = task.completed ? "bg-gray-50/80" : "bg-white";
     const textColor = task.completed ? "text-gray-600" : "text-slate-800";
 
+    const dueDateText = () => {
+        let dateObj = new Date(task.dueDate);
+        let diff = differenceInCalendarDays(dateObj, new Date());
+        if (diff === 0) {
+            return "Today";
+        } else if (diff === 1) {
+            return "Tomorrow";
+        } else if (diff < 0) {
+            return "Overdue";
+        } else {
+            return dateObj.toLocaleDateString();
+        }
+    };
+
     const handleDelete = () => {
         sendTaskDelete(task.id);
     };
@@ -57,10 +72,11 @@ function Task({ task, sendTaskDelete, sendTaskCompleted }) {
                 {task.completed ? <FaRegCircleCheck /> : <FaRegCircle />}
                 </button> */}
 
-            <div className="flex-1 cursor-pointer ps-1 py-0.5">
+            <div className="flex-1 cursor-pointer ps-1 py-0.5 mx-2">
                 <Link to={`/task/${task.id}`}>
-                    <div className="px-2 py-1">{task.title}</div>
+                    <div className="py-1">{task.title}</div>
                 </Link>
+                {task.dueDate && !task.completed && <div className="text-sm text-slate-500"> {dueDateText()}</div>}
             </div>
 
             <button className="cursor-pointer flex items-center px-2" onClick={handleDelete}>

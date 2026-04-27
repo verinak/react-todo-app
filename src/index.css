@@ -4,3 +4,68 @@
 html {
     scrollbar-gutter: stable;
 }
+
+/* -- DatePicker styles --  */
+
+/* text color */
+.react-datepicker,
+.react-datepicker__current-month,
+.react-datepicker__header,
+.react-datepicker__month,
+.react-datepicker__today-button,
+.react-datepicker__day-name,
+.react-datepicker__day {
+    @apply text-slate-800;
+}
+/* outside month text color */
+.react-datepicker__day--outside-month {
+    @apply text-slate-800/60;
+}
+/* month names text color and weight */
+.react-datepicker__day-name,
+.react-datepicker__day-names {
+    @apply font-bold text-gray-600/80;
+}
+
+/* corner rounding and main background color */
+.react-datepicker {
+    @apply bg-gray-50/60 backdrop-blur-sm rounded-xl overflow-hidden;
+    /* i mean there must be a reason the library creators didn't add that overflow hidden bs ana ha3mel nafsi habla */
+}
+
+/* header/button background color */
+.react-datepicker__header,
+.react-datepicker__today-button {
+    @apply bg-gray-100;
+}
+/* arrow color */
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle,
+.react-datepicker-popper .react-datepicker__triangle {
+    @apply text-gray-100 fill-gray-100;
+}
+
+/* days border radius */
+.react-datepicker__day,
+.react-datepicker__day:hover,
+.react-datepicker__day--selected,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--keyboard-selected {
+    @apply !rounded-3xl;
+}
+/* selected day background */
+.react-datepicker__day--selected,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--keyboard-selected:hover {
+    @apply !bg-sky-700 text-white;
+}
+/* hover background color */
+.react-datepicker__day:hover:not(.react-datepicker__day--selected:hover) {
+    @apply !bg-sky-800/10;
+}
+/* keyboard selected day remove outline */
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--keyboard-selected:hover {
+    @apply outline-0;
+}
